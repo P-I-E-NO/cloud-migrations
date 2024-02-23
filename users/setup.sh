@@ -1,8 +1,10 @@
 source .env
 
 node src/users.js down $TEST
+node src/fcm_tokens.js down $TEST
 
 node src/users.js up $TEST
+node src/fcm_tokens.js up $TEST
 
 echo "schema up"
 
