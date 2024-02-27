@@ -23,9 +23,18 @@ const { Client } = require("pg");
                 await conn.query(`
                     create table if not exists notifications (
                         id varchar(32) not null primary key,
+                        to_user varchar(32) not null,
                         data jsonb not null
                     );
                 `);
+                
+                await conn.query(`
+                    alter table notifications add foreign key (to_user) references users(id)
+                `)
+
+                await conn.query(`
+                    create index notifications_fk on notifications (to_user);
+                `)
 
                 await conn.query("commit");
 
